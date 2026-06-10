@@ -41,19 +41,9 @@
 
         h1 { font-size: 1.4rem; margin: 0; text-transform: uppercase; letter-spacing: 1px; }
 
-        .icon-btn {
-            background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; transition: 0.2s;
-        }
+        .icon-btn { background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; transition: 0.2s; }
         .icon-btn:hover { color: var(--accent-blue); }
-        .icon-btn:disabled { 
-            color: #2d364f; 
-            opacity: 0.2;              /* Knocks the brightness down significantly */
-            filter: grayscale(100%);   /* Strips out any native emoji color tints */
-            cursor: not-allowed; 
-        }
-        .icon-btn:disabled:hover { 
-            color: #2d364f; 
-        }
+        .icon-btn:disabled { color: #2d364f; opacity: 0.2; filter: grayscale(100%); cursor: not-allowed; }
         
         .audio-btn {
             background-color: #2d364f; color: var(--text-muted); border: none; padding: 6px 12px; 
@@ -74,14 +64,13 @@
         .section-card {
             background-color: var(--card-bg); border-radius: 12px; padding: 15px;
             border: 1px solid #2d364f; display: flex; flex-direction: column; align-items: center; position: relative;
+            transition: all 0.3s ease;
         }
 
         .section-title { font-size: 0.95rem; font-weight: bold; color: var(--text-muted); margin-bottom: 10px; text-transform: uppercase; }
 
         .visualizer { display: flex; align-items: center; justify-content: space-between; width: 100%; height: 180px; position: relative; }
-
         .graphic-wrapper { flex: 1; display: flex; justify-content: center; align-items: center; height: 100%; z-index: 2; }
-
         .trailer-graphic { width: 180px; height: 120px; transition: transform 0.1s ease-out; transform-origin: center center; }
 
         .gauge-container { width: 65px; height: 150px; position: relative; display: flex; justify-content: center; z-index: 3; }
@@ -104,7 +93,6 @@
         .lift-right { right: 15px; }
 
         .connection-status { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: var(--text-muted); }
-        
         .status-dot { width: 10px; height: 10px; border-radius: 50%; background-color: var(--warn-red); }
         .status-dot.connected { background-color: var(--level-green); box-shadow: 0 0 8px var(--level-green); }
         .status-dot.ping { animation: pulse 0.3s ease-out; }
@@ -115,15 +103,34 @@
             100% { transform: scale(1); box-shadow: 0 0 8px var(--level-green); background-color: var(--level-green); }
         }
 
-        .btn { background-color: var(--accent-blue); color: #000; border: none; padding: 10px 20px; font-weight: bold; border-radius: 6px; cursor: pointer; }
+        .btn { background-color: var(--accent-blue); color: #000; border: none; padding: 10px 20px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: background-color 0.2s; }
         .btn-secondary { background-color: #2d364f; color: var(--text-main); border: none; }
         .btn-secondary:hover { background-color: #3a4666; }
         .btn-danger { background-color: transparent; color: var(--warn-red); border: 1px solid var(--warn-red); }
+        .btn-danger-solid { background-color: var(--warn-red); color: #fff; border: none; }
 
-        .modal-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8); z-index: 100; justify-content: center; align-items: center;
+        /* --- NEW HITCH RECALL CSS CLASSES --- */
+        .recall-active-card {
+            border-color: var(--accent-blue) !important;
+            box-shadow: 0 0 15px rgba(0, 173, 181, 0.2);
+            background-color: #050a12;
         }
+        .target-none { font-size: 1rem; color: var(--text-muted); transition: all 0.2s; }
+        .target-saved { font-size: 1rem; color: var(--accent-blue); font-weight: bold; transition: all 0.2s; }
+        .target-recall-active { 
+            font-size: 1.8rem; 
+            color: var(--warn-yellow); 
+            font-weight: 900; 
+            transition: all 0.2s; 
+            display: inline-block;
+        }
+        .target-match { 
+            color: var(--level-green) !important; 
+            text-shadow: 0 0 15px rgba(46, 204, 113, 0.7); 
+            transform: scale(1.1);
+        }
+
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 100; justify-content: center; align-items: center; }
         .modal-overlay.active { display: flex; }
         .modal-content { background: var(--card-bg); padding: 20px; border-radius: 12px; width: 90%; max-width: 400px; border: 1px solid #2d364f; }
         .form-group { margin-bottom: 15px; }
@@ -131,7 +138,6 @@
         .form-group input { width: 100%; padding: 8px; background: #0b0f19; border: 1px solid #2d364f; color: #fff; border-radius: 4px; box-sizing: border-box;}
         .modal-actions { display: flex; justify-content: space-between; margin-top: 25px; gap: 10px;}
         .modal-actions button { flex: 1; }
-
         .hitch-controls { display: flex; gap: 10px; margin-top: 10px; width: 100%; justify-content: center;}
     </style>
 </head>
@@ -248,12 +254,14 @@
             <div id="pitchText" class="readout">0.0° (Level)</div>
         </div>
 
-        <div class="section-card">
+        <div class="section-card" id="hitchMemoryCard">
             <div class="section-title">Hitch Height Memory</div>
-            <div class="connection-status">Target Pitch: <span id="memHitchText">None Saved</span></div>
+            <div class="connection-status" style="margin-bottom: 5px;">
+                Target Pitch: &nbsp;<span id="memHitchText" class="target-none">None Saved</span>
+            </div>
             <div class="hitch-controls">
                 <button class="btn btn-secondary" onclick="bleWriteCmd('CMD:MEMH')">Memorize Current</button>
-                <button class="btn" onclick="bleWriteCmd('CMD:RECH')">Recall / Target</button>
+                <button id="recallBtn" class="btn" onclick="toggleRecallMode()">Recall / Target</button>
             </div>
         </div>
     </div>
@@ -263,7 +271,7 @@
             <div class="section-title">Device Settings</div>
             <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0; margin-bottom: 20px;">
                 Firmware Version: <span id="fwVersion" style="color: var(--accent-blue); font-weight: bold;">--</span><br>
-                User Interface Version: <span style="font-weight: bold;">1.3.0</span>
+                User Interface Version: <span style="font-weight: bold;">1.4.0</span>
             </p>
             <div class="form-group">
                 <label>Wheel Base Width (inches)</label>
@@ -308,6 +316,10 @@
         let wheelBase = 96; 
         let axleDist = 150;
         let lastValidRssi = -50;
+
+        // --- HITCH MEMORY STATE ---
+        let targetPitchValue = null;
+        let isRecallModeActive = false;
 
         let audioCtx, oscillator, gainNode;
         let isAudioEnabled = false;
@@ -373,7 +385,56 @@
                 document.getElementById('rollLiftLeft').style.display = 'none';
                 document.getElementById('rollLiftRight').style.display = 'none';
                 document.getElementById('pitchLiftRight').style.display = 'none';
+                
+                // Reset recall state visually on disconnect
+                if(isRecallModeActive) toggleRecallMode();
             }
+        }
+
+        // Handles rendering the target text dynamically
+        function updateHitchTextDisplay() {
+            const textSpan = document.getElementById('memHitchText');
+            
+            // Clear all structural classes first
+            textSpan.classList.remove('target-none', 'target-saved', 'target-recall-active', 'target-match');
+
+            if (targetPitchValue === null) {
+                textSpan.innerText = "None Saved";
+                textSpan.classList.add('target-none');
+            } else {
+                textSpan.innerText = `${targetPitchValue.toFixed(1)}°`;
+                if (isRecallModeActive) {
+                    textSpan.classList.add('target-recall-active');
+                } else {
+                    textSpan.classList.add('target-saved');
+                }
+            }
+        }
+
+        // Toggles the local UI Recall State
+        function toggleRecallMode() {
+            if (targetPitchValue === null) {
+                alert("Please click 'Memorize Current' to save a hitch height before using Recall Mode.");
+                return;
+            }
+
+            isRecallModeActive = !isRecallModeActive;
+
+            const btn = document.getElementById('recallBtn');
+            const card = document.getElementById('hitchMemoryCard');
+
+            if (isRecallModeActive) {
+                btn.innerText = "Exit Recall Mode";
+                btn.className = "btn btn-danger-solid";
+                card.classList.add('recall-active-card');
+            } else {
+                btn.innerText = "Recall / Target";
+                btn.className = "btn";
+                card.classList.remove('recall-active-card');
+            }
+            
+            updateHitchTextDisplay();
+            updateUI(); // Force immediate visual update to check for match
         }
 
         async function connectBLE() {
@@ -403,17 +464,15 @@
                 dot.classList.add('connected');
                 label.innerText = "Connected";
                 
-                // Transform Connect UI button into Disconnect handler
                 btn.innerText = "Disconnect";
                 btn.className = "btn btn-secondary";
                 btn.onclick = disconnectBLE;
                 
                 audioBtn.disabled = false;
-                settingsBtn.disabled = false; // Enable settings gear
+                settingsBtn.disabled = false;
                 
                 setUIConnectedStyle(true); 
 
-                // Request the saved configuration from the ESP32 upon successful connection
                 setTimeout(() => { bleWriteCmd('CMD:GETC'); }, 500);
 
                 txChar.addEventListener('characteristicvaluechanged', (event) => {
@@ -432,7 +491,25 @@
                         if (cfgParts.length >= 3) {
                             document.getElementById('fwVersion').innerText = cfgParts[2];
                         }
+                        if (cfgParts.length >= 5) {
+                            const hasMem = cfgParts[3] === "1";
+                            targetPitchValue = hasMem ? parseFloat(cfgParts[4]) : null;
+                            updateHitchTextDisplay();
+                        }
                         return; 
+                    }
+
+                    // --- Check for Immediate Memory Updates ---
+                    if (rawString.startsWith("MEM:")) {
+                        targetPitchValue = parseFloat(rawString.substring(4));
+                        
+                        // If they memorize a new height while in recall mode, kick them out of recall mode
+                        if (isRecallModeActive) {
+                            toggleRecallMode(); 
+                        } else {
+                            updateHitchTextDisplay();
+                        }
+                        return;
                     }
 
                     // --- Process Standard Telemetry Packet ---
@@ -478,7 +555,6 @@
                     dot.classList.remove('connected');
                     label.innerText = "Disconnected";
                     
-                    // Reset UI button back to normal connection modes
                     btn.innerText = "Connect";
                     btn.className = "btn";
                     btn.onclick = connectBLE;
@@ -486,7 +562,6 @@
                     if(isAudioEnabled) toggleAudio(); 
                     audioBtn.disabled = true;
                     
-                    // Enforce lock rules on settings gear 
                     settingsBtn.disabled = true;
                     document.getElementById('settingsModal').classList.remove('active');
                     document.getElementById('fwVersion').innerText = "--";
@@ -543,6 +618,8 @@
         function triggerFactoryReset() {
             if(confirm("WARNING: Are you sure you want to perform a factory reset?\n\nThis will permanently erase all calibration offsets, clear saved hitch heights, and restore trailer dimensions back to defaults.")) {
                 bleWriteCmd('CMD:FRST');
+                targetPitchValue = null;
+                updateHitchTextDisplay();
                 toggleSettings();
             }
         }
@@ -684,7 +761,7 @@
             document.getElementById('pitchRightPointer').style.transform = `rotate(${-currentPitch * 7.2}deg)`;
             updateHorizonLine('pitch', -currentPitch, pitchVisWidth);
 
-            // 3. Dynamic Level Coloring Updates
+            // 3. Process Dynamic UI Colors
             const pLevel = Math.abs(currentPitch) <= 0.1;
             const rLevel = Math.abs(currentRoll) <= 0.1;
             
@@ -694,6 +771,17 @@
             document.getElementById('pitchRightPointer').style.fill = pLevel ? 'var(--level-green)' : 'var(--accent-blue)';
             document.getElementById('rollHorizon').style.stroke = rLevel ? 'var(--level-green)' : 'var(--accent-blue)';
             document.getElementById('pitchHorizon').style.stroke = pLevel ? 'var(--level-green)' : 'var(--accent-blue)';
+
+            // 4. Handle Target Pitch Visual Match Status
+            if (isRecallModeActive && targetPitchValue !== null) {
+                const textSpan = document.getElementById('memHitchText');
+                // Check if we are within a tight 0.1 degree tolerance of the saved height
+                if (Math.abs(currentPitch - targetPitchValue) <= 0.1) {
+                    textSpan.classList.add('target-match');
+                } else {
+                    textSpan.classList.remove('target-match');
+                }
+            }
         }
 
         function updateHorizonLine(axis, value, visWidth) {
