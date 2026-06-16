@@ -124,7 +124,7 @@
     <div id="settingsModal" class="modal-overlay">
         <div class="modal-content">
             <div class="section-title">Device Settings</div>
-            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0; margin-bottom: 20px;">Firmware Version: <span id="fwVersion" style="color: var(--accent-blue); font-weight: bold;">--</span><br>User Interface Version: <span style="font-weight: bold;">1.6.1</span></p>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0; margin-bottom: 20px;">Firmware Version: <span id="fwVersion" style="color: var(--accent-blue); font-weight: bold;">--</span><br>User Interface Version: <span style="font-weight: bold;">1.6.2</span></p>
             <div class="form-group"><label>Wheel Base Width (inches)</label><input type="number" id="inputWheel" value="96"></div>
             <div class="form-group"><label>Front Jack to Mid-Axle Distance (inches)</label><input type="number" id="inputAxle" value="150"></div>
             <div class="form-group"><label>Bluetooth Name Suffix (4 chars)</label><input type="text" id="inputSuffix" maxlength="4" value="0000" style="text-transform: uppercase;"></div>
@@ -312,7 +312,6 @@
 
         function disconnectBLE() { if (bleDevice && bleDevice.gatt.connected) bleDevice.gatt.disconnect(); }
 
-        // UPDATED: Await added with a 100ms buffer to let ESP32 write to NVS safely
         async function bleWriteCmd(cmdString) {
             if (isDemoMode) { console.log("Demo Mode Intercepted:", cmdString); return; }
             if(!rxChar) return;
@@ -324,27 +323,25 @@
 
         function toggleSettings() { document.getElementById('settingsModal').classList.toggle('active'); }
 
-        // UPDATED: Function made async, added await to sequential save commands
         async function saveSettings() {
             const btn = document.getElementById('saveBtn');
-            btn.innerText = "Saving..."; btn.disabled = true;
+            if (btn) { btn.innerText = "Saving..."; btn.disabled = true; }
 
-            wheelBase = document.getElementById('inputWheel').value; 
-            axleDist = document.getElementById('inputAxle').value;
+            wheelBase = document.getElementById('inputWheel').value; axleDist = document.getElementById('inputAxle').value;
             let suffix = document.getElementById('inputSuffix').value.toUpperCase().padEnd(4, '0').substring(0,4);
             
+            // Validate and Bound the Filter Value
             let alphaVal = parseFloat(document.getElementById('inputAlpha').value);
             if (isNaN(alphaVal) || alphaVal < 0.01) alphaVal = 0.01;
             if (alphaVal > 1.0) alphaVal = 1.0;
             document.getElementById('inputAlpha').value = alphaVal.toFixed(2);
 
-            // Wait for each command to finish over Bluetooth before sending the next one
             await bleWriteCmd(`CMD:SETW:${wheelBase}`); 
             await bleWriteCmd(`CMD:SETA:${axleDist}`); 
             await bleWriteCmd(`CMD:NAME:${suffix}`);
             await bleWriteCmd(`CMD:SETF:${alphaVal.toFixed(2)}`);
             
-            btn.innerText = "Save Settings to Device"; btn.disabled = false;
+            if (btn) { btn.innerText = "Save Settings to Device"; btn.disabled = false; }
             toggleSettings(); updateUI(); 
         }
 
