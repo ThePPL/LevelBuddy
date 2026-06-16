@@ -6,73 +6,23 @@
     <title>RV LevelBuddy</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xml:width='100' height='100'%0AviewBox='0 0 19458.08 10590'%3E%3Cg%3E%3Cpath class='fil0' d='M4419.98 8936.87c0,913 740.14,1653.13 1653.13,1653.13 913,0 1653.13,-740.14 1653.13,-1653.13 2752.65,0 5505.3,0 8257.96,0l3473.87 0 0 -511.99 -3473.87 0 0 -1984.03c0,-3500.41 -1866.93,-6493.41 -3594.59,-6440.14l-10683.94 0c-1598.72,0 -1705.68,332.34 -1705.68,1779.43l0 7156.73 4419.98 0zm-2301.31 -6355.6l3438.72 0 0 2152.61 -3438.72 0c-149.7,0 -272.15,-122.43 -272.15,-272.15l0 -1608.32c0,-149.7 122.45,-272.15 272.15,-272.15zm4029.53 0l2635.6 0 0 2152.61 -2635.6 0 0 -2152.61zm3209.47 0l3444.31 0c149.7,0 272.15,122.45 272.15,272.15l0 1608.32c0,149.71 -122.45,272.15 -272.15,272.15l-3444.31 0 0 -2152.61zm-1897.34 1817.91c-631.06,0 -1142.63,-332.02 -1142.63,-741.6 0,-409.58 511.57,-741.6 1142.63,-741.6 631.06,0 1142.63,332.02 1142.63,741.6 0,409.58 -511.57,741.6 -1142.63,741.6zm-1387.21 5682.78c-632.41,0 -1145.09,-512.68 -1145.09,-1145.09 0,-632.41 512.68,-1145.09 1145.09,-1145.09 632.41,0 1145.09,512.68 1145.09,1145.09 0,632.41 -512.68,1145.09 -1145.09,1145.09z' fill='white'/%3E%3C/g%3E%3C/svg%3E%0A" />
     <style>
-        :root {
-            --bg-color: #121824;
-            --card-bg: #000000;
-            --accent-blue: #00adb5;
-            --text-main: #dddddd;
-            --text-muted: #8a99ad;
-            --level-green: #2ecc71;
-            --warn-red: #e74c3c;
-            --warn-yellow: #f1c40f;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            margin: 0;
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            box-sizing: border-box;
-        }
-
-        .header-bar {
-            width: 100%;
-            max-width: 700px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
+        :root { --bg-color: #121824; --card-bg: #000000; --accent-blue: #00adb5; --text-main: #dddddd; --text-muted: #8a99ad; --level-green: #2ecc71; --warn-red: #e74c3c; --warn-yellow: #f1c40f; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: var(--bg-color); color: var(--text-main); margin: 0; padding: 15px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; box-sizing: border-box; }
+        .header-bar { width: 100%; max-width: 700px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
         h1 { font-size: 1.4rem; margin: 0; text-transform: uppercase; letter-spacing: 1px; }
-
-        .icon-btn { background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; transition: 0.2s; }
+        .icon-btn { background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; transition: 0.2s; padding: 0 5px;}
         .icon-btn:hover { color: var(--accent-blue); }
         .icon-btn:disabled { color: #2d364f; opacity: 0.2; filter: grayscale(100%); cursor: not-allowed; }
-        
-        .audio-btn {
-            background-color: #2d364f; color: var(--text-muted); border: none; padding: 6px 12px; 
-            font-weight: bold; border-radius: 6px; cursor: pointer; transition: 0.2s; font-size: 0.9rem;
-            display: flex; align-items: center; gap: 5px;
-        }
+        .audio-btn { background-color: #2d364f; color: var(--text-muted); border: none; padding: 6px 12px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: 0.2s; font-size: 0.9rem; display: flex; align-items: center; gap: 5px; }
         .audio-btn.active { background-color: var(--accent-blue); color: #000; }
         .audio-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
-        .control-bar {
-            width: 100%; max-width: 700px; background-color: #0b0f19; border: 1px solid #2d364f;
-            border-radius: 12px; display: flex; align-items: center; justify-content: space-between;
-            padding: 12px 20px; box-sizing: border-box; margin-bottom: 15px;
-        }
-
+        .control-bar { width: 100%; max-width: 700px; background-color: #0b0f19; border: 1px solid #2d364f; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; box-sizing: border-box; margin-bottom: 15px; }
         .container { width: 100%; max-width: 700px; display: flex; flex-direction: column; gap: 15px; }
-
-        .section-card {
-            background-color: var(--card-bg); border-radius: 12px; padding: 15px;
-            border: 1px solid #2d364f; display: flex; flex-direction: column; align-items: center; position: relative;
-            transition: all 0.3s ease;
-        }
-
+        .section-card { background-color: var(--card-bg); border-radius: 12px; padding: 15px; border: 1px solid #2d364f; display: flex; flex-direction: column; align-items: center; position: relative; transition: all 0.3s ease; }
         .section-title { font-size: 0.95rem; font-weight: bold; color: var(--text-muted); margin-bottom: 10px; text-transform: uppercase; }
-
         .visualizer { display: flex; align-items: center; justify-content: space-between; width: 100%; height: 180px; position: relative; }
         .graphic-wrapper { flex: 1; display: flex; justify-content: center; align-items: center; height: 100%; z-index: 2; }
         .trailer-graphic { width: 180px; height: 120px; transition: transform 0.1s ease-out; transform-origin: center center; }
-
         .gauge-container { width: 65px; height: 150px; position: relative; display: flex; justify-content: center; z-index: 3; }
         .gauge-svg { width: 100%; height: 100%; overflow: visible; }
         .gauge-track { fill: none; stroke: #2d364f; stroke-width: 3; stroke-linecap: round; }
@@ -80,56 +30,29 @@
         .gauge-tick-major { fill: none; stroke: var(--accent-blue); stroke-width: 2.5; }
         .gauge-labels { font-size: 9px; fill: var(--text-muted); font-weight: bold; text-anchor: middle; dominant-baseline: central; }
         .pointer-arrow { fill: var(--accent-blue); transition: transform 0.1s ease-out, fill 0.2s; }
-
         .line-overlay-svg { position: absolute; top: 50%; left: 0; width: 100%; height: 150px; transform: translateY(-50%); pointer-events: none; z-index: 1; }
         .horizon-line { stroke: var(--accent-blue); stroke-width: 1.5; stroke-dasharray: 4 4; opacity: 0.8; transition: all 0.1s ease-out; }
-
         .readout { margin-top: 10px; font-size: 1.2rem; font-weight: bold; font-variant-numeric: tabular-nums; z-index: 4; }
         .status-level { color: var(--level-green); }
         .status-unlevel { color: var(--warn-red); }
-
         .lift-indicator { position: absolute; bottom: 15px; font-size: 1.1rem; font-weight: bold; color: var(--warn-yellow); display: none; }
         .lift-left { left: 15px; }
         .lift-right { right: 15px; }
-
         .connection-status { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: var(--text-muted); }
         .status-dot { width: 10px; height: 10px; border-radius: 50%; background-color: var(--warn-red); }
         .status-dot.connected { background-color: var(--level-green); box-shadow: 0 0 8px var(--level-green); }
         .status-dot.ping { animation: pulse 0.3s ease-out; }
-
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 8px var(--accent-blue); background-color: var(--accent-blue); }
-            50% { transform: scale(1.5); }
-            100% { transform: scale(1); box-shadow: 0 0 8px var(--level-green); background-color: var(--level-green); }
-        }
-
+        @keyframes pulse { 0% { transform: scale(1); box-shadow: 0 0 8px var(--accent-blue); background-color: var(--accent-blue); } 50% { transform: scale(1.5); } 100% { transform: scale(1); box-shadow: 0 0 8px var(--level-green); background-color: var(--level-green); } }
         .btn { background-color: var(--accent-blue); color: #000; border: none; padding: 10px 20px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: background-color 0.2s; }
         .btn-secondary { background-color: #2d364f; color: var(--text-main); border: none; }
         .btn-secondary:hover { background-color: #3a4666; }
         .btn-danger { background-color: transparent; color: var(--warn-red); border: 1px solid var(--warn-red); }
         .btn-danger-solid { background-color: var(--warn-red); color: #fff; border: none; }
-
-        /* --- NEW HITCH RECALL CSS CLASSES --- */
-        .recall-active-card {
-            border-color: var(--accent-blue) !important;
-            box-shadow: 0 0 15px rgba(0, 173, 181, 0.2);
-            background-color: #050a12;
-        }
+        .recall-active-card { border-color: var(--accent-blue) !important; box-shadow: 0 0 15px rgba(0, 173, 181, 0.2); background-color: #050a12; }
         .target-none { font-size: 1rem; color: var(--text-muted); transition: all 0.2s; }
         .target-saved { font-size: 1rem; color: var(--accent-blue); font-weight: bold; transition: all 0.2s; }
-        .target-recall-active { 
-            font-size: 1.8rem; 
-            color: var(--warn-yellow); 
-            font-weight: 900; 
-            transition: all 0.2s; 
-            display: inline-block;
-        }
-        .target-match { 
-            color: var(--level-green) !important; 
-            text-shadow: 0 0 15px rgba(46, 204, 113, 0.7); 
-            transform: scale(1.1);
-        }
-
+        .target-recall-active { font-size: 1.8rem; color: var(--warn-yellow); font-weight: 900; transition: all 0.2s; display: inline-block; }
+        .target-match { color: var(--level-green) !important; text-shadow: 0 0 15px rgba(46, 204, 113, 0.7); transform: scale(1.1); }
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 100; justify-content: center; align-items: center; }
         .modal-overlay.active { display: flex; }
         .modal-content { background: var(--card-bg); padding: 20px; border-radius: 12px; width: 90%; max-width: 400px; border: 1px solid #2d364f; }
@@ -142,73 +65,34 @@
     </style>
 </head>
 <body>
-
     <div class="header-bar">
         <div style="display: flex; align-items: center; gap: 12px;">
-            <svg viewBox="0 0 19458.08 10590" width="40" height="40">
-                <g id="Layer_x0020_1">
-                    <path class="fil0" d="M4419.98 8936.87c0,913 740.14,1653.13 1653.13,1653.13 913,0 1653.13,-740.14 1653.13,-1653.13 2752.65,0 5505.3,0 8257.96,0l3473.87 0 0 -511.99 -3473.87 0 0 -1984.03c0,-3500.41 -1866.93,-6493.41 -3594.59,-6440.14l-10683.94 0c-1598.72,0 -1705.68,332.34 -1705.68,1779.43l0 7156.73 4419.98 0zm-2301.31 -6355.6l3438.72 0 0 2152.61 -3438.72 0c-149.7,0 -272.15,-122.43 -272.15,-272.15l0 -1608.32c0,-149.7 122.45,-272.15 272.15,-272.15zm4029.53 0l2635.6 0 0 2152.61 -2635.6 0 0 -2152.61zm3209.47 0l3444.31 0c149.7,0 272.15,122.45 272.15,272.15l0 1608.32c0,149.71 -122.45,272.15 -272.15,272.15l-3444.31 0 0 -2152.61zm-1897.34 1817.91c-631.06,0 -1142.63,-332.02 -1142.63,-741.6 0,-409.58 511.57,-741.6 1142.63,-741.6 631.06,0 1142.63,332.02 1142.63,741.6 0,409.58 -511.57,741.6 -1142.63,741.6zm-1387.21 5682.78c-632.41,0 -1145.09,-512.68 -1145.09,-1145.09 0,-632.41 512.68,-1145.09 1145.09,-1145.09 632.41,0 1145.09,512.68 1145.09,1145.09 0,632.41 -512.68,1145.09 -1145.09,1145.09z" fill="var(--text-main)"/>
-                </g>
-            </svg>
+            <svg viewBox="0 0 19458.08 10590" width="40" height="40"><g><path d="M4419.98 8936.87c0,913 740.14,1653.13 1653.13,1653.13 913,0 1653.13,-740.14 1653.13,-1653.13 2752.65,0 5505.3,0 8257.96,0l3473.87 0 0 -511.99 -3473.87 0 0 -1984.03c0,-3500.41 -1866.93,-6493.41 -3594.59,-6440.14l-10683.94 0c-1598.72,0 -1705.68,332.34 -1705.68,1779.43l0 7156.73 4419.98 0zm-2301.31 -6355.6l3438.72 0 0 2152.61 -3438.72 0c-149.7,0 -272.15,-122.43 -272.15,-272.15l0 -1608.32c0,-149.7 122.45,-272.15 272.15,-272.15zm4029.53 0l2635.6 0 0 2152.61 -2635.6 0 0 -2152.61zm3209.47 0l3444.31 0c149.7,0 272.15,122.45 272.15,272.15l0 1608.32c0,149.71 -122.45,272.15 -272.15,272.15l-3444.31 0 0 -2152.61zm-1897.34 1817.91c-631.06,0 -1142.63,-332.02 -1142.63,-741.6 0,-409.58 511.57,-741.6 1142.63,-741.6 631.06,0 1142.63,332.02 1142.63,741.6 0,409.58 -511.57,741.6 -1142.63,741.6zm-1387.21 5682.78c-632.41,0 -1145.09,-512.68 -1145.09,-1145.09 0,-632.41 512.68,-1145.09 1145.09,-1145.09 632.41,0 1145.09,512.68 1145.09,1145.09 0,632.41 -512.68,1145.09 -1145.09,1145.09z" fill="var(--text-main)"/></g></svg>
             <h1>RV LevelBuddy</h1>
         </div>
         <div style="display: flex; gap: 10px;">
-            <button id="audioToggleBtn" class="audio-btn" onclick="toggleAudio()" disabled>
-                🔊 <span id="audioBtnText">Sound: OFF</span>
-            </button>
+            <button id="demoBtn" class="audio-btn" onclick="toggleDemoMode()" title="Demo Mode">▶️ Demo</button>
+            <button id="audioToggleBtn" class="audio-btn" onclick="toggleAudio()" disabled>🔊 <span id="audioBtnText">Sound: OFF</span></button>
             <button id="settingsBtn" class="icon-btn" onclick="toggleSettings()" title="Settings" disabled>⚙️</button>
         </div>
     </div>
 
     <div class="control-bar">
-        <div class="connection-status">
-            <div id="statusDot" class="status-dot"></div>
-            <span id="statusLabel">Disconnected</span>
-        </div>
+        <div class="connection-status"><div id="statusDot" class="status-dot"></div><span id="statusLabel">Disconnected</span></div>
         <button id="connectBtn" class="btn" onclick="connectBLE()">Connect</button>
     </div>
 
     <div class="container">
-        
         <div class="section-card">
             <div class="section-title">Roll / Side-to-Side Level</div>
-            <div id="rollLiftLeft" class="lift-indicator lift-left">↑ 0.0"</div>
-            <div id="rollLiftRight" class="lift-indicator lift-right">↑ 0.0"</div>
-            
+            <div id="rollLiftLeft" class="lift-indicator lift-left">↑ 0.0"</div><div id="rollLiftRight" class="lift-indicator lift-right">↑ 0.0"</div>
             <div class="visualizer" id="rollVisualizer">
                 <svg class="line-overlay-svg"><line id="rollHorizon" class="horizon-line" x1="50" y1="75" x2="650" y2="75" /></svg>
-                <div class="gauge-container"><svg class="gauge-svg" viewBox="0 0 65 150">
-                    <path class="gauge-track" d="M 50 15 A 110 110 0 0 0 50 135" />
-                    <g id="rollLeftScale"></g>
-                    <g id="rollLeftPointer" class="pointer-arrow" style="transform-origin: 160px 75px;"><polygon points="50,75 38,71 38,79" /></g>
-                </svg></div>
-
+                <div class="gauge-container"><svg class="gauge-svg" viewBox="0 0 65 150"><path class="gauge-track" d="M 50 15 A 110 110 0 0 0 50 135" /><g id="rollLeftScale"></g><g id="rollLeftPointer" class="pointer-arrow" style="transform-origin: 160px 75px;"><polygon points="50,75 38,71 38,79" /></g></svg></div>
                 <div class="graphic-wrapper">
-                    <svg id="rollTrailer" class="trailer-graphic" viewBox="0 0 200 120">
-                        <g transform="translate(0, 5)">
-                            <line x1="20" y1="102" x2="180" y2="102" stroke="#2d364f" stroke-width="2" />
-                            <rect x="60" y="20" width="80" height="72" rx="6" fill="#f5f6fa" stroke="#7f8c8d" stroke-width="2" />
-                            <rect x="73" y="32" width="54" height="25" rx="2" fill="#34495e" />
-                            <line x1="66" y1="23" x2="66" y2="74" stroke="#7f8c8d" stroke-width="2" />
-                            <line x1="74" y1="23" x2="74" y2="74" stroke="#7f8c8d" stroke-width="2" />
-                            <line x1="66" y1="33" x2="74" y2="33" stroke="#7f8c8d" stroke-width="1.5" />
-                            <line x1="66" y1="45" x2="74" y2="45" stroke="#7f8c8d" stroke-width="1.5" />
-                            <line x1="66" y1="57" x2="74" y2="57" stroke="#7f8c8d" stroke-width="1.5" />
-                            <line x1="66" y1="69" x2="74" y2="69" stroke="#7f8c8d" stroke-width="1.5" />
-                            <rect x="66" y="78" width="12" height="6" rx="1" fill="#e74c3c" />
-                            <rect x="122" y="78" width="12" height="6" rx="1" fill="#e74c3c" />
-                            <rect x="68" y="92" width="10" height="10" rx="2" fill="#2c3e50" />
-                            <rect x="122" y="92" width="10" height="10" rx="2" fill="#2c3e50" />
-                            <line x1="78" y1="96" x2="122" y2="96" stroke="#7f8c8d" stroke-width="3" />
-                        </g>
-                    </svg>
+                    <svg id="rollTrailer" class="trailer-graphic" viewBox="0 0 200 120"><g transform="translate(0, 5)"><line x1="20" y1="102" x2="180" y2="102" stroke="#2d364f" stroke-width="2" /><rect x="60" y="20" width="80" height="72" rx="6" fill="#f5f6fa" stroke="#7f8c8d" stroke-width="2" /><rect x="73" y="32" width="54" height="25" rx="2" fill="#34495e" /><line x1="66" y1="23" x2="66" y2="74" stroke="#7f8c8d" stroke-width="2" /><line x1="74" y1="23" x2="74" y2="74" stroke="#7f8c8d" stroke-width="2" /><line x1="66" y1="33" x2="74" y2="33" stroke="#7f8c8d" stroke-width="1.5" /><line x1="66" y1="45" x2="74" y2="45" stroke="#7f8c8d" stroke-width="1.5" /><line x1="66" y1="57" x2="74" y2="57" stroke="#7f8c8d" stroke-width="1.5" /><line x1="66" y1="69" x2="74" y2="69" stroke="#7f8c8d" stroke-width="1.5" /><rect x="66" y="78" width="12" height="6" rx="1" fill="#e74c3c" /><rect x="122" y="78" width="12" height="6" rx="1" fill="#e74c3c" /><rect x="68" y="92" width="10" height="10" rx="2" fill="#2c3e50" /><rect x="122" y="92" width="10" height="10" rx="2" fill="#2c3e50" /><line x1="78" y1="96" x2="122" y2="96" stroke="#7f8c8d" stroke-width="3" /></g></svg>
                 </div>
-
-                <div class="gauge-container"><svg class="gauge-svg" viewBox="0 0 65 150">
-                    <path class="gauge-track" d="M 15 15 A 110 110 0 0 1 15 135" />
-                    <g id="rollRightScale"></g>
-                    <g id="rollRightPointer" class="pointer-arrow" style="transform-origin: -95px 75px;"><polygon points="15,75 27,71 27,79" /></g>
-                </svg></div>
+                <div class="gauge-container"><svg class="gauge-svg" viewBox="0 0 65 150"><path class="gauge-track" d="M 15 15 A 110 110 0 0 1 15 135" /><g id="rollRightScale"></g><g id="rollRightPointer" class="pointer-arrow" style="transform-origin: -95px 75px;"><polygon points="15,75 27,71 27,79" /></g></svg></div>
             </div>
             <div id="rollText" class="readout">0.0° (Level)</div>
         </div>
@@ -216,49 +100,20 @@
         <div class="section-card">
             <div class="section-title">Pitch / Front-to-Back Level</div>
             <div id="pitchLiftRight" class="lift-indicator lift-right">↑ 0.0"</div>
-
             <div class="visualizer" id="pitchVisualizer">
                 <svg class="line-overlay-svg"><line id="pitchHorizon" class="horizon-line" x1="50" y1="75" x2="650" y2="75" /></svg>
-                <div class="gauge-container"><svg class="gauge-svg" viewBox="0 0 65 150">
-                    <path class="gauge-track" d="M 50 15 A 110 110 0 0 0 50 135" />
-                    <g id="pitchLeftScale"></g>
-                    <g id="pitchLeftPointer" class="pointer-arrow" style="transform-origin: 160px 75px;"><polygon points="50,75 38,71 38,79" /></g>
-                </svg></div>
-
+                <div class="gauge-container"><svg class="gauge-svg" viewBox="0 0 65 150"><path class="gauge-track" d="M 50 15 A 110 110 0 0 0 50 135" /><g id="pitchLeftScale"></g><g id="pitchLeftPointer" class="pointer-arrow" style="transform-origin: 160px 75px;"><polygon points="50,75 38,71 38,79" /></g></svg></div>
                 <div class="graphic-wrapper">
-                    <svg id="pitchTrailer" class="trailer-graphic" viewBox="0 0 200 120">
-                        <g transform="translate(0, 10)">
-                            <line x1="10" y1="95" x2="190" y2="95" stroke="#2d364f" stroke-width="2" />
-                            <path d="M 20 85 L 20 25 Q 20 20 25 20 L 125 20 Q 135 20 145 35 L 155 60 L 155 85 Z" fill="#f5f6fa" stroke="#7f8c8d" stroke-width="2" />
-                            <rect x="35" y="32" width="40" height="20" rx="3" fill="#34495e" />
-                            <rect x="110" y="35" width="22" height="48" rx="2" fill="#ebf0f1" stroke="#7f8c8d" stroke-width="1.5" />
-                            <rect x="114" y="40" width="14" height="15" rx="1" fill="#34495e" />
-                            <circle cx="114" cy="62" r="1.5" fill="#7f8c8d" />
-                            <path d="M 155 70 L 185 70 L 180 80 L 155 80 Z" fill="#2980b9" />
-                            <path d="M 180 70 L 180 90 M 175 90 L 185 90" stroke="#7f8c8d" stroke-width="3" fill="none" />
-                            <circle cx="180" cy="70" r="3" fill="#34495e" />
-                            <circle cx="55" cy="85" r="13" fill="#2c3e50" />
-                            <circle cx="55" cy="85" r="6" fill="#bdc3c7" />
-                            <circle cx="85" cy="85" r="13" fill="#2c3e50" />
-                            <circle cx="85" cy="85" r="6" fill="#bdc3c7" />
-                        </g>
-                    </svg>
+                    <svg id="pitchTrailer" class="trailer-graphic" viewBox="0 0 200 120"><g transform="translate(0, 10)"><line x1="10" y1="95" x2="190" y2="95" stroke="#2d364f" stroke-width="2" /><path d="M 20 85 L 20 25 Q 20 20 25 20 L 125 20 Q 135 20 145 35 L 155 60 L 155 85 Z" fill="#f5f6fa" stroke="#7f8c8d" stroke-width="2" /><rect x="35" y="32" width="40" height="20" rx="3" fill="#34495e" /><rect x="110" y="35" width="22" height="48" rx="2" fill="#ebf0f1" stroke="#7f8c8d" stroke-width="1.5" /><rect x="114" y="40" width="14" height="15" rx="1" fill="#34495e" /><circle cx="114" cy="62" r="1.5" fill="#7f8c8d" /><path d="M 155 70 L 185 70 L 180 80 L 155 80 Z" fill="#2980b9" /><path d="M 180 70 L 180 90 M 175 90 L 185 90" stroke="#7f8c8d" stroke-width="3" fill="none" /><circle cx="180" cy="70" r="3" fill="#34495e" /><circle cx="55" cy="85" r="13" fill="#2c3e50" /><circle cx="55" cy="85" r="6" fill="#bdc3c7" /><circle cx="85" cy="85" r="13" fill="#2c3e50" /><circle cx="85" cy="85" r="6" fill="#bdc3c7" /></g></svg>
                 </div>
-
-                <div class="gauge-container"><svg class="gauge-svg" viewBox="0 0 65 150">
-                    <path class="gauge-track" d="M 15 15 A 110 110 0 0 1 15 135" />
-                    <g id="pitchRightScale"></g>
-                    <g id="pitchRightPointer" class="pointer-arrow" style="transform-origin: -95px 75px;"><polygon points="15,75 27,71 27,79" /></g>
-                </svg></div>
+                <div class="gauge-container"><svg class="gauge-svg" viewBox="0 0 65 150"><path class="gauge-track" d="M 15 15 A 110 110 0 0 1 15 135" /><g id="pitchRightScale"></g><g id="pitchRightPointer" class="pointer-arrow" style="transform-origin: -95px 75px;"><polygon points="15,75 27,71 27,79" /></g></svg></div>
             </div>
             <div id="pitchText" class="readout">0.0° (Level)</div>
         </div>
 
         <div class="section-card" id="hitchMemoryCard">
             <div class="section-title">Hitch Height Memory</div>
-            <div class="connection-status" style="margin-bottom: 5px;">
-                Target Pitch: &nbsp;<span id="memHitchText" class="target-none">None Saved</span>
-            </div>
+            <div class="connection-status" style="margin-bottom: 5px;">Target Pitch: &nbsp;<span id="memHitchText" class="target-none">None Saved</span></div>
             <div class="hitch-controls">
                 <button class="btn btn-secondary" onclick="bleWriteCmd('CMD:MEMH')">Memorize Current</button>
                 <button id="recallBtn" class="btn" onclick="toggleRecallMode()">Recall / Target</button>
@@ -269,37 +124,17 @@
     <div id="settingsModal" class="modal-overlay">
         <div class="modal-content">
             <div class="section-title">Device Settings</div>
-            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0; margin-bottom: 20px;">
-                Firmware Version: <span id="fwVersion" style="color: var(--accent-blue); font-weight: bold;">--</span><br>
-                User Interface Version: <span style="font-weight: bold;">1.4.0</span>
-            </p>
-            <div class="form-group">
-                <label>Wheel Base Width (inches)</label>
-                <input type="number" id="inputWheel" value="96">
-            </div>
-            <div class="form-group">
-                <label>Front Jack to Mid-Axle Distance (inches)</label>
-                <input type="number" id="inputAxle" value="150">
-            </div>
-
-            <div class="modal-actions" style="margin-top: 15px;">
-                <button class="btn" onclick="saveSettings()">Save Settings to Device</button>
-            </div>
-
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0; margin-bottom: 20px;">Firmware Version: <span id="fwVersion" style="color: var(--accent-blue); font-weight: bold;">--</span><br>User Interface Version: <span style="font-weight: bold;">1.6.1</span></p>
+            <div class="form-group"><label>Wheel Base Width (inches)</label><input type="number" id="inputWheel" value="96"></div>
+            <div class="form-group"><label>Front Jack to Mid-Axle Distance (inches)</label><input type="number" id="inputAxle" value="150"></div>
+            <div class="form-group"><label>Bluetooth Name Suffix (4 chars)</label><input type="text" id="inputSuffix" maxlength="4" value="0000" style="text-transform: uppercase;"></div>
+            <div class="form-group"><label>Noise Filter (0.01 to 1.0)</label><input type="number" id="inputAlpha" step="0.01" min="0.01" max="1.0" value="0.05"></div>
+            <div class="modal-actions" style="margin-top: 15px;"><button id="saveBtn" class="btn" onclick="saveSettings()">Save Settings to Device</button></div>
             <hr style="border: 0; border-top: 1px solid #2d364f; margin: 25px 0;">
-            
             <div class="section-title" style="color: var(--warn-red)">System Actions</div>
-            <div class="modal-actions">
-                <button class="btn btn-danger" onclick="triggerZero()">Zero Levels</button>
-                <button class="btn btn-danger" onclick="triggerFactoryReset()">Factory Reset</button>
-            </div>
-            <div class="modal-actions" style="margin-top: 10px;">
-                <button class="btn btn-secondary" onclick="triggerOTA()" style="border-color: var(--accent-blue); color: var(--accent-blue);">Update Firmware</button>
-            </div>
-            
-            <div class="modal-actions" style="margin-top: 10px;">
-                <button class="btn btn-secondary" onclick="toggleSettings()">Close</button>
-            </div>
+            <div class="modal-actions"><button class="btn btn-danger" onclick="triggerZero()">Zero Levels</button><button class="btn btn-danger" onclick="triggerFactoryReset()">Factory Reset</button></div>
+            <div class="modal-actions" style="margin-top: 10px;"><button class="btn btn-secondary" onclick="triggerOTA()" style="border-color: var(--accent-blue); color: var(--accent-blue);">Update Firmware</button></div>
+            <div class="modal-actions" style="margin-top: 10px;"><button class="btn btn-secondary" onclick="toggleSettings()">Close</button></div>
         </div>
     </div>
 
@@ -309,489 +144,283 @@
         const CHAR_RX_UUID = 'beb5483e-36e1-4688-b7f5-ea07361b26a9'; 
 
         let bleDevice, bleServer, txChar, rxChar;
-        let currentPitch = 0.0;
-        let currentRoll = 0.0;
+        let currentPitch = 0.0, currentRoll = 0.0;
         let heartbeatCounter = 0; 
-        
-        let wheelBase = 96; 
-        let axleDist = 150;
+        let wheelBase = 96, axleDist = 150;
         let lastValidRssi = -50;
-
-        // --- HITCH MEMORY STATE ---
         let targetPitchValue = null;
         let isRecallModeActive = false;
 
         let audioCtx, oscillator, gainNode;
-        let isAudioEnabled = false;
-        let beepTimeout = null;
-        let isBeepingTone = false;
+        let isAudioEnabled = false, beepTimeout = null, isBeepingTone = false;
+        
+        let isDemoMode = false, demoInterval = null, demoTime = 0;
 
-        window.onload = function() {
-            initScales();
-            setUIConnectedStyle(false); 
-        };
+        window.onload = function() { initScales(); setUIConnectedStyle(false); };
 
         function initScales() {
-            renderGaugeScale('rollLeftScale', 160, 75, 110, 180, 7.2);
-            renderGaugeScale('rollRightScale', -95, 75, 110, 0, 7.2);
-            renderGaugeScale('pitchLeftScale', 160, 75, 110, 180, -7.2);
-            renderGaugeScale('pitchRightScale', -95, 75, 110, 0, -7.2);
+            renderGaugeScale('rollLeftScale', 160, 75, 110, 180, 7.2); renderGaugeScale('rollRightScale', -95, 75, 110, 0, 7.2);
+            renderGaugeScale('pitchLeftScale', 160, 75, 110, 180, -7.2); renderGaugeScale('pitchRightScale', -95, 75, 110, 0, -7.2);
         }
 
         function renderGaugeScale(elementId, cx, cy, r, baseAngle, stepMultiplier) {
-            const container = document.getElementById(elementId);
-            container.innerHTML = ''; 
-            
+            const container = document.getElementById(elementId); container.innerHTML = ''; 
             for (let v = -4; v <= 4; v++) {
-                const angleDeg = baseAngle + (v * stepMultiplier);
-                const rad = angleDeg * Math.PI / 180;
-                
-                const x1 = cx + (r - 4) * Math.cos(rad);
-                const y1 = cy + (r - 4) * Math.sin(rad);
-                const x2 = cx + (r + 4) * Math.cos(rad);
-                const y2 = cy + (r + 4) * Math.sin(rad);
-                
+                const rad = (baseAngle + (v * stepMultiplier)) * Math.PI / 180;
                 const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-                line.setAttribute("x1", x1); line.setAttribute("y1", y1);
-                line.setAttribute("x2", x2); line.setAttribute("y2", y2);
-                line.setAttribute("class", v === 0 ? "gauge-tick-major" : "gauge-tick");
-                container.appendChild(line);
-                
-                const xt = cx + (r + 25) * Math.cos(rad);
-                const yt = cy + (r + 25) * Math.sin(rad);
-                
+                line.setAttribute("x1", cx + (r - 4) * Math.cos(rad)); line.setAttribute("y1", cy + (r - 4) * Math.sin(rad));
+                line.setAttribute("x2", cx + (r + 4) * Math.cos(rad)); line.setAttribute("y2", cy + (r + 4) * Math.sin(rad));
+                line.setAttribute("class", v === 0 ? "gauge-tick-major" : "gauge-tick"); container.appendChild(line);
                 const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                text.setAttribute("x", xt);
-                text.setAttribute("y", yt);
-                text.setAttribute("class", "gauge-labels");
-                if (v === 0) text.setAttribute("fill", "#00adb5");
-                text.textContent = (v > 0 ? "+" : "") + v + "°";
-                container.appendChild(text);
+                text.setAttribute("x", cx + (r + 25) * Math.cos(rad)); text.setAttribute("y", cy + (r + 25) * Math.sin(rad));
+                text.setAttribute("class", "gauge-labels"); if (v === 0) text.setAttribute("fill", "#00adb5");
+                text.textContent = (v > 0 ? "+" : "") + v + "°"; container.appendChild(text);
             }
         }
 
         function setUIConnectedStyle(connected) {
             const mode = connected ? 'visible' : 'hidden';
-            document.getElementById('rollText').style.visibility = mode;
-            document.getElementById('pitchText').style.visibility = mode;
-            document.getElementById('rollLeftPointer').style.visibility = mode;
-            document.getElementById('rollRightPointer').style.visibility = mode;
-            document.getElementById('pitchLeftPointer').style.visibility = mode;
-            document.getElementById('pitchRightPointer').style.visibility = mode;
-            document.getElementById('rollHorizon').style.visibility = mode;
-            document.getElementById('pitchHorizon').style.visibility = mode;
-            
+            document.getElementById('rollText').style.visibility = mode; document.getElementById('pitchText').style.visibility = mode;
+            document.getElementById('rollLeftPointer').style.visibility = mode; document.getElementById('rollRightPointer').style.visibility = mode;
+            document.getElementById('pitchLeftPointer').style.visibility = mode; document.getElementById('pitchRightPointer').style.visibility = mode;
+            document.getElementById('rollHorizon').style.visibility = mode; document.getElementById('pitchHorizon').style.visibility = mode;
             if (!connected) {
-                document.getElementById('rollLiftLeft').style.display = 'none';
-                document.getElementById('rollLiftRight').style.display = 'none';
+                document.getElementById('rollLiftLeft').style.display = 'none'; document.getElementById('rollLiftRight').style.display = 'none';
                 document.getElementById('pitchLiftRight').style.display = 'none';
-                
-                // Reset recall state visually on disconnect
                 if(isRecallModeActive) toggleRecallMode();
             }
         }
 
-        // Handles rendering the target text dynamically
         function updateHitchTextDisplay() {
             const textSpan = document.getElementById('memHitchText');
-            
-            // Clear all structural classes first
             textSpan.classList.remove('target-none', 'target-saved', 'target-recall-active', 'target-match');
-
             if (targetPitchValue === null) {
-                textSpan.innerText = "None Saved";
-                textSpan.classList.add('target-none');
+                textSpan.innerText = "None Saved"; textSpan.classList.add('target-none');
             } else {
                 textSpan.innerText = `${targetPitchValue.toFixed(1)}°`;
-                if (isRecallModeActive) {
-                    textSpan.classList.add('target-recall-active');
-                } else {
-                    textSpan.classList.add('target-saved');
-                }
+                if (isRecallModeActive) textSpan.classList.add('target-recall-active');
+                else textSpan.classList.add('target-saved');
             }
         }
 
-        // Toggles the local UI Recall State
         function toggleRecallMode() {
-            if (targetPitchValue === null) {
-                alert("Please click 'Memorize Current' to save a hitch height before using Recall Mode.");
-                return;
-            }
-
+            if (targetPitchValue === null && !isDemoMode) { alert("Please click 'Memorize Current' to save a hitch height before using Recall Mode."); return; }
+            if (isDemoMode && targetPitchValue === null) targetPitchValue = 0.5; 
             isRecallModeActive = !isRecallModeActive;
+            const btn = document.getElementById('recallBtn'), card = document.getElementById('hitchMemoryCard');
+            if (isRecallModeActive) { btn.innerText = "Exit Recall Mode"; btn.className = "btn btn-danger-solid"; card.classList.add('recall-active-card'); } 
+            else { btn.innerText = "Recall / Target"; btn.className = "btn"; card.classList.remove('recall-active-card'); }
+            updateHitchTextDisplay(); updateUI(); 
+        }
 
-            const btn = document.getElementById('recallBtn');
-            const card = document.getElementById('hitchMemoryCard');
-
-            if (isRecallModeActive) {
-                btn.innerText = "Exit Recall Mode";
-                btn.className = "btn btn-danger-solid";
-                card.classList.add('recall-active-card');
+        function toggleDemoMode() {
+            isDemoMode = !isDemoMode;
+            const demoBtn = document.getElementById('demoBtn');
+            if (isDemoMode) {
+                demoBtn.classList.add('active');
+                if (bleDevice && bleDevice.gatt.connected) disconnectBLE();
+                document.getElementById('statusLabel').innerText = "Demo Mode";
+                document.getElementById('statusDot').className = "status-dot connected";
+                document.getElementById('audioToggleBtn').disabled = false;
+                document.getElementById('settingsBtn').disabled = false;
+                setUIConnectedStyle(true);
+                demoInterval = setInterval(() => {
+                    demoTime += 0.05; 
+                    // Roll: 16 second period triangle wave (-2 to +2)
+                    currentRoll = Math.abs(((demoTime % 16) / 16) * 8 - 4) - 2;
+                    // Pitch: 10 second period triangle wave (-2 to +2)
+                    currentPitch = Math.abs(((demoTime % 10) / 10) * 8 - 4) - 2;
+                    
+                    updateUI(); manageAudio();
+                }, 50);
             } else {
-                btn.innerText = "Recall / Target";
-                btn.className = "btn";
-                card.classList.remove('recall-active-card');
+                demoBtn.classList.remove('active');
+                clearInterval(demoInterval);
+                document.getElementById('statusLabel').innerText = "Disconnected";
+                document.getElementById('statusDot').className = "status-dot";
+                document.getElementById('audioToggleBtn').disabled = true;
+                document.getElementById('settingsBtn').disabled = true;
+                setUIConnectedStyle(false);
+                currentPitch = 0; currentRoll = 0;
+                targetPitchValue = null; updateHitchTextDisplay();
+                if (isAudioEnabled) toggleAudio();
             }
-            
-            updateHitchTextDisplay();
-            updateUI(); // Force immediate visual update to check for match
         }
 
         async function connectBLE() {
-            const dot = document.getElementById('statusDot');
-            const label = document.getElementById('statusLabel');
-            const btn = document.getElementById('connectBtn');
-            const audioBtn = document.getElementById('audioToggleBtn');
-            const settingsBtn = document.getElementById('settingsBtn');
-
+            if(isDemoMode) toggleDemoMode(); 
+            const dot = document.getElementById('statusDot'), label = document.getElementById('statusLabel');
+            const btn = document.getElementById('connectBtn'), audioBtn = document.getElementById('audioToggleBtn'), settingsBtn = document.getElementById('settingsBtn');
             try {
                 label.innerText = "Scanning...";
-                bleDevice = await navigator.bluetooth.requestDevice({
-                    filters: [{ services: [SERVICE_UUID] }] 
-                });
-
+                bleDevice = await navigator.bluetooth.requestDevice({ filters: [{ services: [SERVICE_UUID] }] });
                 label.innerText = "Connecting...";
                 bleServer = await bleDevice.gatt.connect();
                 const service = await bleServer.getPrimaryService(SERVICE_UUID);
-                
-                txChar = await service.getCharacteristic(CHAR_TX_UUID);
-                await txChar.startNotifications();
-                
-                try {
-                    rxChar = await service.getCharacteristic(CHAR_RX_UUID);
-                } catch(e) { console.warn("RX Pin Missing"); }
-
-                dot.classList.add('connected');
-                label.innerText = "Connected";
-                
-                btn.innerText = "Disconnect";
-                btn.className = "btn btn-secondary";
-                btn.onclick = disconnectBLE;
-                
-                audioBtn.disabled = false;
-                settingsBtn.disabled = false;
-                
+                txChar = await service.getCharacteristic(CHAR_TX_UUID); await txChar.startNotifications();
+                try { rxChar = await service.getCharacteristic(CHAR_RX_UUID); } catch(e) { console.warn("RX Pin Missing"); }
+                dot.classList.add('connected'); label.innerText = "Connected";
+                btn.innerText = "Disconnect"; btn.className = "btn btn-secondary"; btn.onclick = disconnectBLE;
+                audioBtn.disabled = false; settingsBtn.disabled = false;
                 setUIConnectedStyle(true); 
-
                 setTimeout(() => { bleWriteCmd('CMD:GETC'); }, 500);
 
                 txChar.addEventListener('characteristicvaluechanged', (event) => {
-                    const decoder = new TextDecoder('utf-8');
-                    const rawString = decoder.decode(event.target.value);
-                    
-                    // --- Check for Configuration Packet ---
+                    const rawString = new TextDecoder('utf-8').decode(event.target.value);
                     if (rawString.startsWith("CFG:")) {
                         const cfgParts = rawString.substring(4).split(',');
-                        if (cfgParts.length >= 2) {
-                            wheelBase = parseInt(cfgParts[0]);
-                            axleDist = parseInt(cfgParts[1]);
-                            document.getElementById('inputWheel').value = wheelBase;
-                            document.getElementById('inputAxle').value = axleDist;
-                        }
-                        if (cfgParts.length >= 3) {
-                            document.getElementById('fwVersion').innerText = cfgParts[2];
-                        }
-                        if (cfgParts.length >= 5) {
-                            const hasMem = cfgParts[3] === "1";
-                            targetPitchValue = hasMem ? parseFloat(cfgParts[4]) : null;
-                            updateHitchTextDisplay();
-                        }
+                        if (cfgParts.length >= 2) { document.getElementById('inputWheel').value = wheelBase = parseInt(cfgParts[0]); document.getElementById('inputAxle').value = axleDist = parseInt(cfgParts[1]); }
+                        if (cfgParts.length >= 3) document.getElementById('fwVersion').innerText = cfgParts[2];
+                        if (cfgParts.length >= 5) { targetPitchValue = cfgParts[3] === "1" ? parseFloat(cfgParts[4]) : null; updateHitchTextDisplay(); }
+                        if (cfgParts.length >= 6) document.getElementById('inputSuffix').value = cfgParts[5];
+                        if (cfgParts.length >= 7) document.getElementById('inputAlpha').value = parseFloat(cfgParts[6]).toFixed(2);
                         return; 
                     }
-
-                    // --- Check for Immediate Memory Updates ---
                     if (rawString.startsWith("MEM:")) {
                         targetPitchValue = parseFloat(rawString.substring(4));
-                        
-                        // If they memorize a new height while in recall mode, kick them out of recall mode
-                        if (isRecallModeActive) {
-                            toggleRecallMode(); 
-                        } else {
-                            updateHitchTextDisplay();
-                        }
+                        if (isRecallModeActive) toggleRecallMode(); else updateHitchTextDisplay();
                         return;
                     }
-
-                    // --- Process Standard Telemetry Packet ---
                     heartbeatCounter++;
-                    if(heartbeatCounter % 5 === 0) {
-                        dot.classList.remove('ping');
-                        void dot.offsetWidth; 
-                        dot.classList.add('ping');
-                    }
-
+                    if(heartbeatCounter % 5 === 0) { dot.classList.remove('ping'); void dot.offsetWidth; dot.classList.add('ping'); }
                     const parts = rawString.split(',');
-                    
                     if(parts.length >= 2) {
-                        currentPitch = parseFloat(parts[0]);
-                        currentRoll = parseFloat(parts[1]);
-                        
+                        currentPitch = parseFloat(parts[0]); currentRoll = parseFloat(parts[1]);
                         if (parts.length >= 3) {
                             let rssi = parseInt(parts[2]);
-                            
-                            if (rssi < -90 && lastValidRssi > -60) {
-                                rssi = lastValidRssi; 
-                            } else {
-                                lastValidRssi = rssi;
-                            }
-                            
-                            let quality = 0;
-                            if (rssi >= -40) {
-                                quality = 100;
-                            } else if (rssi <= -90) {
-                                quality = 0;
-                            } else {
-                                quality = Math.round(((rssi + 90) / 50) * 100);
-                            }
-                            document.getElementById('statusLabel').innerText = `Connected (${quality}%)`;
+                            if (rssi < -90 && lastValidRssi > -60) rssi = lastValidRssi; else lastValidRssi = rssi;
+                            let quality = rssi >= -40 ? 100 : (rssi <= -90 ? 0 : Math.round(((rssi + 90) / 50) * 100));
+                            label.innerText = `Connected (${quality}%)`;
                         }
-
-                        updateUI();
-                        manageAudio();
+                        updateUI(); manageAudio();
                     }
                 });
-
                 bleDevice.addEventListener('gattserverdisconnected', () => {
-                    dot.classList.remove('connected');
-                    label.innerText = "Disconnected";
-                    
-                    btn.innerText = "Connect";
-                    btn.className = "btn";
-                    btn.onclick = connectBLE;
-                    
+                    dot.classList.remove('connected'); label.innerText = "Disconnected";
+                    btn.innerText = "Connect"; btn.className = "btn"; btn.onclick = connectBLE;
                     if(isAudioEnabled) toggleAudio(); 
-                    audioBtn.disabled = true;
-                    
-                    settingsBtn.disabled = true;
-                    document.getElementById('settingsModal').classList.remove('active');
-                    document.getElementById('fwVersion').innerText = "--";
-                    
+                    audioBtn.disabled = true; settingsBtn.disabled = true;
+                    document.getElementById('settingsModal').classList.remove('active'); document.getElementById('fwVersion').innerText = "--";
                     setUIConnectedStyle(false); 
                 });
-
             } catch (error) {
-                console.error(error);
-                label.innerText = "Error Connecting";
-                dot.classList.remove('connected');
-                
-                btn.innerText = "Connect";
-                btn.className = "btn";
-                btn.onclick = connectBLE;
-                
-                settingsBtn.disabled = true;
-                setUIConnectedStyle(false);
+                console.error(error); label.innerText = "Error Connecting"; dot.classList.remove('connected');
+                btn.innerText = "Connect"; btn.className = "btn"; btn.onclick = connectBLE;
+                settingsBtn.disabled = true; setUIConnectedStyle(false);
             }
         }
 
-        function disconnectBLE() {
-            if (bleDevice && bleDevice.gatt.connected) {
-                bleDevice.gatt.disconnect();
-            }
-        }
+        function disconnectBLE() { if (bleDevice && bleDevice.gatt.connected) bleDevice.gatt.disconnect(); }
 
+        // UPDATED: Await added with a 100ms buffer to let ESP32 write to NVS safely
         async function bleWriteCmd(cmdString) {
+            if (isDemoMode) { console.log("Demo Mode Intercepted:", cmdString); return; }
             if(!rxChar) return;
-            try {
-                const encoder = new TextEncoder();
-                await rxChar.writeValue(encoder.encode(cmdString));
+            try { 
+                await rxChar.writeValue(new TextEncoder().encode(cmdString)); 
+                await new Promise(resolve => setTimeout(resolve, 100)); 
             } catch(e) { console.error(e); }
         }
 
         function toggleSettings() { document.getElementById('settingsModal').classList.toggle('active'); }
 
-        function saveSettings() {
-            wheelBase = document.getElementById('inputWheel').value;
+        // UPDATED: Function made async, added await to sequential save commands
+        async function saveSettings() {
+            const btn = document.getElementById('saveBtn');
+            btn.innerText = "Saving..."; btn.disabled = true;
+
+            wheelBase = document.getElementById('inputWheel').value; 
             axleDist = document.getElementById('inputAxle').value;
-            bleWriteCmd(`CMD:SETW:${wheelBase}`);
-            bleWriteCmd(`CMD:SETA:${axleDist}`);
-            toggleSettings();
-            updateUI(); 
+            let suffix = document.getElementById('inputSuffix').value.toUpperCase().padEnd(4, '0').substring(0,4);
+            
+            let alphaVal = parseFloat(document.getElementById('inputAlpha').value);
+            if (isNaN(alphaVal) || alphaVal < 0.01) alphaVal = 0.01;
+            if (alphaVal > 1.0) alphaVal = 1.0;
+            document.getElementById('inputAlpha').value = alphaVal.toFixed(2);
+
+            // Wait for each command to finish over Bluetooth before sending the next one
+            await bleWriteCmd(`CMD:SETW:${wheelBase}`); 
+            await bleWriteCmd(`CMD:SETA:${axleDist}`); 
+            await bleWriteCmd(`CMD:NAME:${suffix}`);
+            await bleWriteCmd(`CMD:SETF:${alphaVal.toFixed(2)}`);
+            
+            btn.innerText = "Save Settings to Device"; btn.disabled = false;
+            toggleSettings(); updateUI(); 
         }
 
-        function triggerZero() {
-            if(confirm("WARNING: Are you sure you want to perform a system zero?\n\nBefore proceeding, the RV should be perfectly level.")) {
-                bleWriteCmd('CMD:ZERO');
-                toggleSettings();
-            }
-        }
-
-        function triggerFactoryReset() {
-            if(confirm("WARNING: Are you sure you want to perform a factory reset?\n\nThis will permanently erase all calibration offsets, clear saved hitch heights, and restore trailer dimensions back to defaults.")) {
-                bleWriteCmd('CMD:FRST');
-                targetPitchValue = null;
-                updateHitchTextDisplay();
-                toggleSettings();
-            }
-        }
-
-        async function triggerOTA() {
-            if(confirm("Enter Firmware Update Mode?\n\nThe device will disconnect Bluetooth and broadcast a temporary WiFi network.\n\nAfter this, follow these steps:\n-Connect your device to the WiFi network 'RV_LevelBuddy_Update'\n-Browse to http://192.168.4.1")) {
-                await bleWriteCmd('CMD:OTA');
-                toggleSettings();
-                disconnectBLE();
-            }
-        }
+        function triggerZero() { if(confirm("WARNING: Are you sure you want to perform a system zero?\n\nBefore proceeding, the RV should be perfectly level.")) { bleWriteCmd('CMD:ZERO'); toggleSettings(); } }
+        function triggerFactoryReset() { if(confirm("WARNING: Are you sure you want to perform a factory reset?\n\nThis will permanently erase all calibration offsets, clear saved hitch heights, and restore trailer dimensions back to defaults.")) { bleWriteCmd('CMD:FRST'); targetPitchValue = null; updateHitchTextDisplay(); toggleSettings(); } }
+        async function triggerOTA() { if(confirm("Enter Firmware Update Mode?\n\nThe device will disconnect Bluetooth and broadcast a temporary WiFi network.\n\nAfter this, follow these steps:\n-Connect your device to the WiFi network 'RV_LevelBuddy_Update'\n-Browse to http://192.168.4.1")) { await bleWriteCmd('CMD:OTA'); toggleSettings(); disconnectBLE(); } }
         
         function toggleAudio() {
-            const btn = document.getElementById('audioToggleBtn');
-            const btnText = document.getElementById('audioBtnText');
-            
+            const btn = document.getElementById('audioToggleBtn'), btnText = document.getElementById('audioBtnText');
             if(!isAudioEnabled) {
-                if(!audioCtx) {
-                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                    oscillator = audioCtx.createOscillator();
-                    gainNode = audioCtx.createGain();
-                    oscillator.type = 'sine';
-                    oscillator.frequency.value = 880; 
-                    oscillator.connect(gainNode);
-                    gainNode.connect(audioCtx.destination);
-                    oscillator.start();
-                    gainNode.gain.value = 0;
-                }
-                isAudioEnabled = true;
-                btn.classList.add('active');
-                btnText.innerText = "Sound: ON";
-                audioCtx.resume();
-                manageAudio();
-            } else {
-                isAudioEnabled = false;
-                btn.classList.remove('active');
-                btnText.innerText = "Sound: OFF";
-                stopAudio();
-            }
+                if(!audioCtx) { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); oscillator = audioCtx.createOscillator(); gainNode = audioCtx.createGain(); oscillator.type = 'sine'; oscillator.frequency.value = 880; oscillator.connect(gainNode); gainNode.connect(audioCtx.destination); oscillator.start(); gainNode.gain.value = 0; }
+                isAudioEnabled = true; btn.classList.add('active'); btnText.innerText = "Sound: ON"; audioCtx.resume(); manageAudio();
+            } else { isAudioEnabled = false; btn.classList.remove('active'); btnText.innerText = "Sound: OFF"; stopAudio(); }
         }
 
-        function stopAudio() {
-            if(gainNode) gainNode.gain.setTargetAtTime(0, audioCtx.currentTime, 0.015);
-            if(beepTimeout) { clearTimeout(beepTimeout); beepTimeout = null; }
-            isBeepingTone = false;
-        }
+        function stopAudio() { if(gainNode) gainNode.gain.setTargetAtTime(0, audioCtx.currentTime, 0.015); if(beepTimeout) { clearTimeout(beepTimeout); beepTimeout = null; } isBeepingTone = false; }
 
         function manageAudio() {
             if(!isAudioEnabled || !audioCtx) return;
             const maxDev = Math.abs(currentRoll); 
-            
-            if(maxDev <= 0.1) {
-                if(beepTimeout) { clearTimeout(beepTimeout); beepTimeout = null; }
-                gainNode.gain.setTargetAtTime(0.1, audioCtx.currentTime, 0.015);
-                isBeepingTone = false;
-            } else {
-                if(!beepTimeout) playBeepCycle();
-            }
+            if(maxDev <= 0.1) { if(beepTimeout) { clearTimeout(beepTimeout); beepTimeout = null; } gainNode.gain.setTargetAtTime(0.1, audioCtx.currentTime, 0.015); isBeepingTone = false; } 
+            else { if(!beepTimeout) playBeepCycle(); }
         }
 
         function playBeepCycle() {
             if(!isAudioEnabled) return;
             const maxDev = Math.abs(currentRoll);
-            
-            if(maxDev <= 0.1) {
-                beepTimeout = null;
-                manageAudio(); 
-                return;
-            }
-
-            let cappedDev = Math.min(maxDev, 5.0);
-            let speedMs = 150 + ((cappedDev - 0.1) / 4.9) * 850;
-
-            if (isBeepingTone) {
-                gainNode.gain.setTargetAtTime(0, audioCtx.currentTime, 0.015);
-            } else {
-                gainNode.gain.setTargetAtTime(0.2, audioCtx.currentTime, 0.015);
-            }
-            isBeepingTone = !isBeepingTone;
-
+            if(maxDev <= 0.1) { beepTimeout = null; manageAudio(); return; }
+            let speedMs = 150 + ((Math.min(maxDev, 5.0) - 0.1) / 4.9) * 850;
+            gainNode.gain.setTargetAtTime(isBeepingTone ? 0 : 0.2, audioCtx.currentTime, 0.015); isBeepingTone = !isBeepingTone;
             beepTimeout = setTimeout(playBeepCycle, speedMs / 2);
         }
 
         function formatReadoutText(value, axis) {
             if (Math.abs(value) <= 0.1) return { text: '0.0° (Level)', isLevel: true };
-            const sign = value > 0 ? '+' : '-';
-            const absVal = Math.abs(value).toFixed(1);
-            let dir = axis === 'pitch' ? (value < 0 ? 'Front Low' : 'Front High') : (value < 0 ? 'Driver Low' : 'Passenger Low');
-            return { text: `${sign}${absVal}° (${dir})`, isLevel: false };
+            return { text: `${value > 0 ? '+' : '-'}${Math.abs(value).toFixed(1)}° (${axis === 'pitch' ? (value < 0 ? 'Front Low' : 'Front High') : (value < 0 ? 'Driver Low' : 'Passenger Low')})`, isLevel: false };
         }
 
         function updateUI() {
-            const rollVisWidth = document.getElementById('rollVisualizer').clientWidth;
-            const pitchVisWidth = document.getElementById('pitchVisualizer').clientWidth;
-
-            // 1. Process Roll
-            const rollTrailer = document.getElementById('rollTrailer');
-            const rollText = document.getElementById('rollText');
+            const rollVisWidth = document.getElementById('rollVisualizer').clientWidth, pitchVisWidth = document.getElementById('pitchVisualizer').clientWidth;
+            const rollTrailer = document.getElementById('rollTrailer'), rollText = document.getElementById('rollText');
             rollTrailer.style.transform = `rotate(${currentRoll}deg)`;
-            
             const rollData = formatReadoutText(currentRoll, 'roll');
-            rollText.innerText = rollData.text;
-            rollText.className = `readout ${rollData.isLevel ? 'status-level' : 'status-unlevel'}`;
-            
-            const rollRad = Math.abs(currentRoll) * (Math.PI / 180);
-            const rollLiftInches = (wheelBase * Math.sin(rollRad)).toFixed(1);
-            
-            document.getElementById('rollLiftLeft').style.display = (currentRoll < -0.1) ? 'block' : 'none';
-            document.getElementById('rollLiftLeft').innerText = `↑ ${rollLiftInches}"`;
-            document.getElementById('rollLiftRight').style.display = (currentRoll > 0.1) ? 'block' : 'none';
-            document.getElementById('rollLiftRight').innerText = `↑ ${rollLiftInches}"`;
-
-            document.getElementById('rollLeftPointer').style.transform = `rotate(${currentRoll * 7.2}deg)`;
-            document.getElementById('rollRightPointer').style.transform = `rotate(${currentRoll * 7.2}deg)`;
+            rollText.innerText = rollData.text; rollText.className = `readout ${rollData.isLevel ? 'status-level' : 'status-unlevel'}`;
+            const rollLiftInches = (wheelBase * Math.sin(Math.abs(currentRoll) * (Math.PI / 180))).toFixed(1);
+            document.getElementById('rollLiftLeft').style.display = (currentRoll < -0.1) ? 'block' : 'none'; document.getElementById('rollLiftLeft').innerText = `↑ ${rollLiftInches}"`;
+            document.getElementById('rollLiftRight').style.display = (currentRoll > 0.1) ? 'block' : 'none'; document.getElementById('rollLiftRight').innerText = `↑ ${rollLiftInches}"`;
+            document.getElementById('rollLeftPointer').style.transform = `rotate(${currentRoll * 7.2}deg)`; document.getElementById('rollRightPointer').style.transform = `rotate(${currentRoll * 7.2}deg)`;
             updateHorizonLine('roll', currentRoll, rollVisWidth);
 
-            // 2. Process Pitch
-            const pitchTrailer = document.getElementById('pitchTrailer');
-            const pitchText = document.getElementById('pitchText');
-            
+            const pitchTrailer = document.getElementById('pitchTrailer'), pitchText = document.getElementById('pitchText');
             pitchTrailer.style.transform = `rotate(${-currentPitch}deg)`;
-            
             const pitchData = formatReadoutText(currentPitch, 'pitch');
-            pitchText.innerText = pitchData.text;
-            pitchText.className = `readout ${pitchData.isLevel ? 'status-level' : 'status-unlevel'}`;
-
-            const pitchRad = Math.abs(currentPitch) * (Math.PI / 180);
-            const pitchLiftInches = (axleDist * Math.sin(pitchRad)).toFixed(1);
+            pitchText.innerText = pitchData.text; pitchText.className = `readout ${pitchData.isLevel ? 'status-level' : 'status-unlevel'}`;
+            const pitchLiftInches = (axleDist * Math.sin(Math.abs(currentPitch) * (Math.PI / 180))).toFixed(1);
             const pitchLiftRight = document.getElementById('pitchLiftRight');
-            
-            if (Math.abs(currentPitch) <= 0.1) {
-                pitchLiftRight.style.display = 'none';
-            } else {
-                pitchLiftRight.style.display = 'block';
-                pitchLiftRight.innerText = currentPitch > 0.1 ? `↓ ${pitchLiftInches}"` : `↑ ${pitchLiftInches}"`;
-            }
-
-            document.getElementById('pitchLeftPointer').style.transform = `rotate(${-currentPitch * 7.2}deg)`;
-            document.getElementById('pitchRightPointer').style.transform = `rotate(${-currentPitch * 7.2}deg)`;
+            if (Math.abs(currentPitch) <= 0.1) { pitchLiftRight.style.display = 'none'; } 
+            else { pitchLiftRight.style.display = 'block'; pitchLiftRight.innerText = currentPitch > 0.1 ? `↓ ${pitchLiftInches}"` : `↑ ${pitchLiftInches}"`; }
+            document.getElementById('pitchLeftPointer').style.transform = `rotate(${-currentPitch * 7.2}deg)`; document.getElementById('pitchRightPointer').style.transform = `rotate(${-currentPitch * 7.2}deg)`;
             updateHorizonLine('pitch', -currentPitch, pitchVisWidth);
 
-            // 3. Process Dynamic UI Colors
-            const pLevel = Math.abs(currentPitch) <= 0.1;
-            const rLevel = Math.abs(currentRoll) <= 0.1;
-            
-            document.getElementById('rollLeftPointer').style.fill = rLevel ? 'var(--level-green)' : 'var(--accent-blue)';
-            document.getElementById('rollRightPointer').style.fill = rLevel ? 'var(--level-green)' : 'var(--accent-blue)';
-            document.getElementById('pitchLeftPointer').style.fill = pLevel ? 'var(--level-green)' : 'var(--accent-blue)';
-            document.getElementById('pitchRightPointer').style.fill = pLevel ? 'var(--level-green)' : 'var(--accent-blue)';
-            document.getElementById('rollHorizon').style.stroke = rLevel ? 'var(--level-green)' : 'var(--accent-blue)';
-            document.getElementById('pitchHorizon').style.stroke = pLevel ? 'var(--level-green)' : 'var(--accent-blue)';
+            const pLevel = Math.abs(currentPitch) <= 0.1, rLevel = Math.abs(currentRoll) <= 0.1;
+            document.getElementById('rollLeftPointer').style.fill = rLevel ? 'var(--level-green)' : 'var(--accent-blue)'; document.getElementById('rollRightPointer').style.fill = rLevel ? 'var(--level-green)' : 'var(--accent-blue)';
+            document.getElementById('pitchLeftPointer').style.fill = pLevel ? 'var(--level-green)' : 'var(--accent-blue)'; document.getElementById('pitchRightPointer').style.fill = pLevel ? 'var(--level-green)' : 'var(--accent-blue)';
+            document.getElementById('rollHorizon').style.stroke = rLevel ? 'var(--level-green)' : 'var(--accent-blue)'; document.getElementById('pitchHorizon').style.stroke = pLevel ? 'var(--level-green)' : 'var(--accent-blue)';
 
-            // 4. Handle Target Pitch Visual Match Status
             if (isRecallModeActive && targetPitchValue !== null) {
                 const textSpan = document.getElementById('memHitchText');
-                // Check if we are within a tight 0.1 degree tolerance of the saved height
-                if (Math.abs(currentPitch - targetPitchValue) <= 0.1) {
-                    textSpan.classList.add('target-match');
-                } else {
-                    textSpan.classList.remove('target-match');
-                }
+                if (Math.abs(currentPitch - targetPitchValue) <= 0.1) textSpan.classList.add('target-match'); else textSpan.classList.remove('target-match');
             }
         }
 
         function updateHorizonLine(axis, value, visWidth) {
-            const bAngle = Math.max(-30, Math.min(30, value * 7.2));
-            const rad = bAngle * (Math.PI / 180);
-            const horizon = document.getElementById(`${axis}Horizon`);
-            horizon.setAttribute('x1', 160 - 110 * Math.cos(rad));
-            horizon.setAttribute('y1', 75 - 110 * Math.sin(rad));
-            horizon.setAttribute('x2', visWidth - 65 - 95 + 110 * Math.cos(rad));
-            horizon.setAttribute('y2', 75 + 110 * Math.sin(rad));
+            const rad = Math.max(-30, Math.min(30, value * 7.2)) * (Math.PI / 180); const horizon = document.getElementById(`${axis}Horizon`);
+            horizon.setAttribute('x1', 160 - 110 * Math.cos(rad)); horizon.setAttribute('y1', 75 - 110 * Math.sin(rad));
+            horizon.setAttribute('x2', visWidth - 65 - 95 + 110 * Math.cos(rad)); horizon.setAttribute('y2', 75 + 110 * Math.sin(rad));
         }
     </script>
 </body>
